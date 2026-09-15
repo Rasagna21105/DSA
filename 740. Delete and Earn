@@ -1,0 +1,58 @@
+class Solution:
+    def deleteAndEarn(self, nums: List[int]) -> int:
+        # nums.sort()
+        # def earn(idx,prev):
+        #     if idx==len(nums):
+        #         return 0
+        #     if (idx,prev) in dp:
+        #         return dp[(idx,prev)]
+        #     nottake=0+earn(idx+1,prev)
+        #     take=0
+        #     if prev==0 or nums[idx]!=prev+1:
+        #         take=nums[idx]+earn(idx+1,nums[idx])
+        #     dp[(idx,prev)]=max(take,nottake)
+        #     return dp[(idx,prev)]
+        # n=len(nums)
+        # dp={}
+        # return earn(0,0)
+
+
+        nums.sort()
+
+        arr = []
+        i = 0
+
+        # Combine duplicates
+        while i < len(nums):
+            val = nums[i]
+            total = 0
+
+            while i < len(nums) and nums[i] == val:
+                total += nums[i]
+                i += 1
+
+            arr.append([val, total])
+
+        n = len(arr)
+
+        dp = [0] * (n + 1)
+
+        dp[0] = 0
+        dp[1] = arr[0][1]
+
+        for i in range(2, n + 1):
+
+            # Not take current
+            nottake = dp[i - 1]
+
+            # Take current
+            take = arr[i - 1][1]
+
+            if arr[i - 1][0] == arr[i - 2][0] + 1:
+                take += dp[i - 2]
+            else:
+                take += dp[i - 1]
+
+            dp[i] = max(take, nottake)
+
+        return dp[n]
