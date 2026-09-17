@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 class Solution:
     def deleteAndEarn(self, nums: List[int]) -> int:
         # nums.sort()
@@ -56,3 +57,4 @@ class Solution:
             dp[i] = max(take, nottake)
 
         return dp[n]
+
