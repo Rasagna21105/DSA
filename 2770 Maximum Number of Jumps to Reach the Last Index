@@ -1,0 +1,29 @@
+class Solution:
+    def maximumJumps(self, nums: List[int], target: int) -> int:
+        n=len(nums)
+        dp=[-1]*n
+        dp[0]=0
+        for i in range(1,n):
+            for j in range(i):
+                if dp[j]!=-1:
+                    if abs(nums[j]-nums[i])<=target:
+                            dp[i]=max(dp[i],dp[j]+1)
+        return dp[n-1]        
+        
+
+        # def jump(idx):
+        #     if idx==len(nums)-1:
+        #         return 0
+        #     if dp[idx]!=-1:
+        #         return dp[idx]
+        #     ans=float('-inf')
+        #     for j in range(idx+1,len(nums)):
+        #         if abs(nums[j]-nums[idx])<=target:
+        #             ans=max(ans,1+jump(j))
+        #     dp[idx]=ans
+        #     return dp[idx]
+        # dp=[-1]*len(nums)
+        # ans=jump(0)
+        # return ans if ans>=0 else -1
+
+        
