@@ -1,0 +1,17 @@
+class Solution:
+    def watchedVideosByFriends(self, watchedVideos: list[list[str]], friends: list[list[int]], id: int, level: int) -> list[str]:
+        q=deque([id])
+        visited={id}
+        for _ in range(level):
+            for _ in range(len(q)):
+                p=q.popleft()
+                for friend in friends[p]:
+                    if friend not in visited:
+                        visited.add(friend)
+                        q.append(friend)
+
+        freq={}
+        for person in q:
+            for video in watchedVideos[person]:
+                freq[video] = freq.get(video, 0) + 1
+        return sorted(freq, key=lambda x:(freq[x],x))
